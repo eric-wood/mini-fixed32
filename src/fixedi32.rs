@@ -1,5 +1,11 @@
 use core::{convert, ops};
 
+#[cfg(feature = "fmt")]
+use std::fmt;
+
+#[cfg(feature = "defmt")]
+use defmt::{write, Format, Formatter};
+
 #[derive(Clone, Copy, PartialEq, Eq, Ord, PartialOrd, Debug)]
 pub struct FixedI32<const N: usize> {
     pub value: i32,
@@ -8,9 +14,7 @@ pub struct FixedI32<const N: usize> {
 #[macro_export]
 macro_rules! fixedI32 {
     ($whole_bits:expr, $value:literal) => {
-        crate::fixedi32::FixedI32::<$whole_bits>::new(
-            ($value as f32 * (1 << (32 - $whole_bits)) as f32) as i32,
-        )
+        FixedI32::<$whole_bits>::new(($value as f32 * (1 << (32 - $whole_bits)) as f32) as i32)
     };
 }
 

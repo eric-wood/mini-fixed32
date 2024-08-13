@@ -1,5 +1,11 @@
 use core::{convert, ops};
 
+#[cfg(feature = "fmt")]
+use std::fmt;
+
+#[cfg(feature = "defmt")]
+use defmt::{write, Format, Formatter};
+
 #[derive(Clone, Copy, PartialEq, Eq, Ord, PartialOrd, Debug)]
 pub struct FixedU32<const N: usize> {
     pub value: u32,
@@ -8,9 +14,7 @@ pub struct FixedU32<const N: usize> {
 #[macro_export]
 macro_rules! fixedU32 {
     ($whole_bits:expr, $value:literal) => {
-        crate::fixedu32::FixedU32::<$whole_bits>::new(
-            ($value as f32 * (1 << (32 - $whole_bits)) as f32) as u32,
-        )
+        FixedU32::<$whole_bits>::new(($value as f32 * (1 << (32 - $whole_bits)) as f32) as u32)
     };
 }
 
