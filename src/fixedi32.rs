@@ -1,8 +1,11 @@
+use core::prelude::rust_2021::{derive, Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd};
 use core::{convert, ops};
 
 #[cfg(feature = "fmt")]
 use std::fmt;
 
+#[cfg(feature = "defmt")]
+use crate::util::num_digits;
 #[cfg(feature = "defmt")]
 use defmt::{write, Format, Formatter};
 

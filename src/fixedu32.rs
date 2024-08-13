@@ -1,7 +1,11 @@
+use core::prelude::rust_2021::{derive, Clone, Copy, Debug, Eq, Ord, PartialEq, PartialOrd};
 use core::{convert, ops};
 
 #[cfg(feature = "fmt")]
 use std::fmt;
+
+#[cfg(feature = "defmt")]
+use crate::util::num_digits;
 
 #[cfg(feature = "defmt")]
 use defmt::{write, Format, Formatter};
@@ -121,24 +125,6 @@ impl<const N: usize> ops::Div for FixedU32<N> {
 impl<const N: usize> ops::DivAssign for FixedU32<N> {
     fn div_assign(&mut self, rhs: Self) {
         self.value = (((self.value as u64) << (32 - N as u64)) / (rhs.value as u64)) as u32
-    }
-}
-
-/// Dumb branching method for determining the number of digits for a
-/// given power of 2 without bringing in a logarithm function.
-fn num_digits(power: usize) -> u32 {
-    match power {
-        power if power < 4 => 1,
-        power if power < 7 => 2,
-        power if power < 10 => 3,
-        power if power < 14 => 4,
-        power if power < 17 => 5,
-        power if power < 20 => 6,
-        power if power < 24 => 7,
-        power if power < 27 => 8,
-        power if power < 30 => 9,
-        power if power < 34 => 10,
-        _ => 0,
     }
 }
 

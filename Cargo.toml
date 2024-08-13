@@ -7,7 +7,9 @@ license = "MIT"
 keywords = ["fixed", "no-std"]
 
 [features]
-default = ["fmt"]
 defmt = []
 fmt = ["float"]
 float = []
+
+[dependencies]
+defmt = "0.3.8"
