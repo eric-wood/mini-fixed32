@@ -139,3 +139,11 @@ impl<const N: usize> Format for FixedU32<N> {
         write!(fmt, "{}.{}", whole, frac)
     }
 }
+
+#[cfg(feature = "fmt")]
+impl<const N: usize> fmt::Display for FixedU32<N> {
+    fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let value: f64 = (*self).into();
+        formatter.write_fmt(format_args!("{}", value))
+    }
+}
