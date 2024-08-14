@@ -24,7 +24,7 @@ macro_rules! fixedI32 {
 impl<const N: usize> FixedI32<N> {
     pub const FRAC_SIZE: i32 = 32 - (N as i32);
 
-    pub fn new(value: i32) -> Self {
+    pub const fn new(value: i32) -> Self {
         FixedI32 { value }
     }
 
