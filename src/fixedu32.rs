@@ -10,11 +10,18 @@ use crate::util::num_digits;
 #[cfg(feature = "defmt")]
 use defmt::{write, Format, Formatter};
 
+/// An unsigned 32-bit fixed point number with N integer bits.
 #[derive(Clone, Copy, PartialEq, Eq, Ord, PartialOrd, Debug)]
 pub struct FixedU32<const N: usize> {
     pub value: u32,
 }
 
+/// Create a new [FixedU32] from a floating point immediate at compile time.
+///
+/// ```
+/// # use mini_fixed32::{fixedU32, FixedU32};
+/// let pi = fixedU32!(16, 3.1415926);
+/// ```
 #[macro_export]
 macro_rules! fixedU32 {
     ($whole_bits:expr, $value:literal) => {
@@ -25,14 +32,17 @@ macro_rules! fixedU32 {
 impl<const N: usize> FixedU32<N> {
     pub const FRAC_SIZE: u32 = 32 - (N as u32);
 
+    /// Construct a new FixedU32 from an existin u32 fixed-point number.
     pub const fn new(value: u32) -> Self {
         FixedU32 { value }
     }
 
+    /// Return the integer (whole) part of the number.
     pub fn whole(self) -> u32 {
         self.value >> Self::FRAC_SIZE
     }
 
+    /// Return the fractional part of the number.
     pub fn frac(self) -> u32 {
         let mask = (1 << Self::FRAC_SIZE) - 1;
         self.value & mask
