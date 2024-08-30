@@ -137,6 +137,13 @@ impl<const N: usize> ops::DivAssign for FixedI32<N> {
     }
 }
 
+impl<const N: usize> ops::Neg for FixedI32<N> {
+    type Output = Self;
+    fn neg(self) -> Self {
+        Self { value: -self.value }
+    }
+}
+
 #[cfg(feature = "defmt")]
 impl<const N: usize> Format for FixedI32<N> {
     fn format(&self, fmt: Formatter) {

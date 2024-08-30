@@ -48,6 +48,7 @@ mod test_fixedi32 {
         assert_eq!(a, answer);
     }
 
+    #[test]
     fn test_div() {
         let mut a = fixedI32!(16, 3);
         let b = fixedI32!(16, -2);
@@ -56,5 +57,13 @@ mod test_fixedi32 {
 
         a /= b;
         assert_eq!(a, answer);
+    }
+
+    #[test]
+    fn test_neg() {
+        let a = fixedI32!(16, 1.5);
+        let b = fixedI32!(16, -1.5);
+        assert_eq!(-a, b);
+        assert_eq!(-b, a);
     }
 }
