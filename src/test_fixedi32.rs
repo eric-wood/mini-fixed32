@@ -66,4 +66,11 @@ mod test_fixedi32 {
         assert_eq!(-a, b);
         assert_eq!(-b, a);
     }
+
+    #[test]
+    fn test_abs() {
+        let a = fixedI32!(16, -1.5);
+        let answer = fixedI32!(16, 1.5);
+        assert_eq!(a.abs(), answer);
+    }
 }

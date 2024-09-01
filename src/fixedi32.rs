@@ -46,6 +46,12 @@ impl<const N: usize> FixedI32<N> {
         let mask = (1 << Self::FRAC_SIZE) - 1;
         (self.value & mask) as u32
     }
+
+    pub fn abs(self) -> Self {
+        FixedI32 {
+            value: self.value.abs(),
+        }
+    }
 }
 
 impl<const N: usize> convert::From<u32> for FixedI32<N> {
