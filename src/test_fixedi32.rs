@@ -73,4 +73,21 @@ mod test_fixedi32 {
         let answer = fixedI32!(16, 1.5);
         assert_eq!(a.abs(), answer);
     }
+
+    #[test]
+    fn test_rem() {
+        let a = fixedI32!(16, 1.5);
+        let answer = fixedI32!(16, 0);
+        assert_eq!(a % a, answer);
+
+        let a = fixedI32!(16, 1.5);
+        let b = fixedI32!(16, 3);
+        let answer = a;
+        assert_eq!(a % b, answer);
+
+        let a = fixedI32!(16, 5);
+        let b = fixedI32!(16, 1.5);
+        let answer = fixedI32!(16, 0.5);
+        assert_eq!(a % b, answer);
+    }
 }

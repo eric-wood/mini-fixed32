@@ -138,6 +138,13 @@ impl<const N: usize> ops::DivAssign for FixedU32<N> {
     }
 }
 
+impl<const N: usize> ops::Rem for FixedU32<N> {
+    type Output = Self;
+    fn rem(self, rhs: Self) -> Self {
+        Self::new(self.value % rhs.value)
+    }
+}
+
 #[cfg(feature = "defmt")]
 impl<const N: usize> Format for FixedU32<N> {
     fn format(&self, fmt: Formatter) {

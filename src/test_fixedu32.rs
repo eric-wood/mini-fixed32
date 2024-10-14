@@ -48,6 +48,7 @@ mod test_fixedu32 {
         assert_eq!(a, answer);
     }
 
+    #[test]
     fn test_div() {
         let mut a = fixedU32!(16, 3);
         let b = fixedU32!(16, 2);
@@ -56,5 +57,22 @@ mod test_fixedu32 {
 
         a /= b;
         assert_eq!(a, answer);
+    }
+
+    #[test]
+    fn test_rem() {
+        let a = fixedU32!(16, 1.5);
+        let answer = fixedU32!(16, 0);
+        assert_eq!(a % a, answer);
+
+        let a = fixedU32!(16, 1.5);
+        let b = fixedU32!(16, 3);
+        let answer = a;
+        assert_eq!(a % b, answer);
+
+        let a = fixedU32!(16, 5);
+        let b = fixedU32!(16, 1.5);
+        let answer = fixedU32!(16, 0.5);
+        assert_eq!(a % b, answer);
     }
 }
