@@ -12,7 +12,7 @@ By representing fixed point numbers with these structs, we sidestep common mathe
 
 - Arithmetic operations!
 - Comparison!
-- Formatting! (with experimental [defmt](http://defmt.ferrous-systems.com) support)
+- Formatting! (with [defmt](http://defmt.ferrous-systems.com) support)
 - Conversion!
 - Floating point immediates!
 
@@ -37,11 +37,22 @@ println!("{}", two_pi);
 
 Because this is primarily meant for use in a `no-std` environment, some functionality is gated behind features:
 
-- `defmt`: experimental support for defmt formatting
+- `defmt`: support for defmt formatting
 - `float`: floating point conversion functions (e.g. `from` and `into`)
 - `fmt`: formatting via `std::format` (enables `float`)
 
 ## Caveats
 
 - Math beyond basic arithmetic is considered out of scope; look to crates like [cordic](https://crates.io/crates/cordic) for that
-- When debugging with defmt, it does its best to attempt to display it as a float on-device, which is occasionally inaccurate given the constraints. This may get addressed later.
+- Use with `defmt` requires an external script (provided in this repo) for conversion (see below)
+
+## Defmt Support
+
+Conversion to floating point can't be done on device and must be handled by an external program.
+To simplify this, we've provided a Python script that accepts input from STDIN and replaces these values with their floating point equivalents for easier debugging.
+
+Toss the script in your `PATH` and pipe to it from the program handling your defmt logging, e.g.
+
+```sh
+cargo run --release | defmt_fixed.py
+```

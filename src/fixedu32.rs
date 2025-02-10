@@ -5,9 +5,6 @@ use core::{convert, ops};
 use std::fmt;
 
 #[cfg(feature = "defmt")]
-use crate::util::num_digits;
-
-#[cfg(feature = "defmt")]
 use defmt::{write, Format, Formatter};
 
 /// An unsigned 32-bit fixed point number with N integer bits.
@@ -148,12 +145,7 @@ impl<const N: usize> ops::Rem for FixedU32<N> {
 #[cfg(feature = "defmt")]
 impl<const N: usize> Format for FixedU32<N> {
     fn format(&self, fmt: Formatter) {
-        let whole = self.whole();
-        let mut frac = self.frac() as u64;
-        let frac_size = 32 - N;
-        frac = frac * 10u64.pow(num_digits(frac_size)) / 2u64.pow(frac_size as u32);
-
-        write!(fmt, "{}.{}", whole, frac)
+        write!(fmt, "f{}u{}", N, self.value)
     }
 }
 

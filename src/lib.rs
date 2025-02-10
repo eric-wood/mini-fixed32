@@ -29,5 +29,3 @@ mod test_fixedi32;
 
 #[cfg(test)]
 mod test_fixedu32;
-
-mod util;
